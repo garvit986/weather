@@ -1,11 +1,10 @@
-import React, { FC , useEffect, useState } from 'react'
+import React, { FC , useEffect, useMemo, useState } from 'react'
 import axios from 'axios';
 import { city as cityType } from '../CityDetails';
 
 interface TemperatureDetail{
     city: string
 }
-
 interface TemperatureData {
     max: number;
     min: number;
@@ -38,9 +37,13 @@ const TemperatureDetails:FC<TemperatureDetail> = ({ city}) => {
         setTemperatureData({ max: maxTemperature, min: minTemperature , avg: averageTemperature });
         } catch (error) {
         console.error('Error fetching temperature data', error);
-        }
-  };
+        }   
 
+  };
+const avgTemperature = useMemo(() => (temperatureData.max + temperatureData.min) / 2, [
+            temperatureData.max,
+            temperatureData.min,
+          ]);
   return (
     <div>
       <h2>Selected City: {city}</h2>
@@ -48,7 +51,7 @@ const TemperatureDetails:FC<TemperatureDetail> = ({ city}) => {
         <div>
           <p>Max Temperature: {temperatureData.max}°C</p>
           <p>Min Temperature: {temperatureData.min}°C</p>
-          <p>Average Temperature: {temperatureData.avg}°C</p>
+          <p>Average Temperature: {avgTemperature}°C</p>
         </div>
       )}
     </div>
