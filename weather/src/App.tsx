@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import './App.css';
-import MainBody from './components/MainBody';
 import SearchBar from './components/SearchBar';
+import TemperatureDetails from './components/TemperatureDetails';
+
 
 function App() {
-  const [city, setCity] = useState<string>(' ')
+  const [city, setCity] = useState<string>('');
   return (
     <>
-      <SearchBar selectedCity={setCity}/>
-      <MainBody />
+      <SearchBar selectedCity={setCity} />
+      <TemperatureDetails city={city}  />
     </>
   );
 }

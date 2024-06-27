@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import {city as cityType } from '../CityDetails'
 
-export default function SearchBar({selectedCity}) {
+
+interface SearchBarProps {
+    selectedCity: (city: string) => void;
+  }
+
+const SearchBar: FC<SearchBarProps> = ({selectedCity}) => {
 
     const [city, setCity] = useState<string>('')
   const handleChange = (event: SelectChangeEvent) => {
-    setCity(event.target.value);
-    const setCi = event.target.value
-    selectedCity(setCi)
+    const cityy = event.target.value as string
+    setCity(cityy);
+    selectedCity(cityy)
+    localStorage.setItem('lastCity', cityy)
   };
 
   return (
@@ -35,3 +41,5 @@ export default function SearchBar({selectedCity}) {
     </div>
   );
 }
+
+export default SearchBar;
